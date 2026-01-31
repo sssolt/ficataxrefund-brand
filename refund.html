@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refund Policy | TaxRefundJack</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { background: '#F8FAFC', brand: '#0F172A', accent: '#10B981', muted: '#64748B', border: '#E2E8F0' }, fontFamily: { serif: ['Instrument Serif', 'serif'], sans: ['Inter', 'sans-serif'] } } } }
+    </script>
+</head>
+<body class="bg-background text-brand font-sans antialiased">
+    <div class="bg-white/90 backdrop-blur-md border-b border-border sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="font-serif text-2xl tracking-tight text-brand flex items-center gap-2">
+                <i data-lucide="layers" class="w-5 h-5 text-accent"></i> TaxRefundJack
+            </a>
+            <a href="index.html" class="text-xs font-bold uppercase tracking-widest text-muted hover:text-brand transition-colors">
+                &larr; Back to Home
+            </a>
+        </div>
+    </div>
+    <div class="max-w-3xl mx-auto px-6 py-16">
+        <h1 class="text-4xl md:text-5xl font-serif text-brand mb-4">Refund Policy</h1>
+        <p class="text-xs text-muted mb-10 uppercase tracking-widest font-bold">Last Updated: January 13, 2026</p>
+        <div class="prose prose-sm text-muted leading-relaxed">
+            <h3 class="text-lg font-bold text-brand mt-8 mb-3">1. Our Service is Free</h3>
+            <p class="mb-4">TaxRefundJack is a free matching service for business owners. We do not charge you any fees to check your eligibility or to match you with an accounting partner.</p>
+            <h3 class="text-lg font-bold text-brand mt-8 mb-3">2. Partner Fees</h3>
+            <p class="mb-4">If you choose to engage with one of the accounting firms we introduce you to, their specific fee structure (usually contingency) will apply.</p>
+        </div>
+    </div>
+    <footer class="py-12 px-6 border-t border-border bg-white text-center">
+        <p class="text-xs text-muted">&copy; 2026 TaxRefundJack.</p>
+    </footer>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaxRefundJack | The FICA Tip Credit Marketplace</title>
+    
+    <!-- Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind & Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#F8FAFC',
+                        surface: '#FFFFFF',
+                        border: '#E2E8F0',
+                        brand: '#0F172A',
+                        accent: '#10B981',
+                        muted: '#64748B',
+                    },
+                    fontFamily: {
+                        serif: ['Instrument Serif', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, rgba(15, 23, 42, 0.07) 1px, transparent 1px), linear-gradient(to bottom, rgba(15, 23, 42, 0.07) 1px, transparent 1px)",
+                    },
+                    boxShadow: {
+                        'card': '0 2px 4px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.03)',
+                        'card-hover': '0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01)',
+                        'glow': '0 0 20px rgba(16, 185, 129, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { background-color: #F8FAFC; color: #0F172A; }
+        .technical-grid {
+            position: absolute; inset: 0; pointer-events: none;
+            background-size: 50px 50px;
+            background-image: var(--tw-gradient-grid-pattern);
+            mask-image: linear-gradient(to bottom, black 40%, transparent 95%);
+        }
+        .bento-card {
+            background-color: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .bento-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.1);
+            border-color: #CBD5E1;
+        }
+        .scroller {
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+        .scroller-inner {
+            display: flex;
+            width: max-content;
+            flex-wrap: nowrap;
+            animation: scroll 40s linear infinite;
+        }
+        @keyframes scroll { to { transform: translateX(-50%); } }
+        
+        /* FAQ Details Animation */
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] summary ~ * { animation: sweep .3s ease-in-out; }
+        @keyframes sweep { 0% {opacity: 0; margin-top: -10px} 100% {opacity: 1; margin-top: 10px}}
+
+        .step-reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .step-reveal.visible { opacity: 1; transform: translateY(0); }
+        .pulse-ring {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 100%; height: 100%; border-radius: 50%; border: 1px solid #10B981;
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden selection:bg-accent selection:text-white">
+
+    <div class="fixed inset-0 bg-grid-pattern technical-grid z-0"></div>
+
+ <!-- HERO SECTION WRAPPER -->
+    <!-- 'bg-white' hides the body grid pattern around the borders -->
+    <section class="bg-white relative z-10 pt-4 px-4 pb-0">
+        
+        <!-- HERO IMAGE CONTAINER -->
+        <!-- Added 'bg-gray-900' so text is visible even if the image fails to load -->
+        <div class="relative w-full h-[850px] rounded-t-[30px] rounded-b-none overflow-hidden shadow-2xl group bg-gray-900">
+            
+            <!-- Background Image -->
+            <div class="absolute inset-0 z-0">
+                <!-- Ensure your file is exactly named 'fica-tax-refund-for-restaurants.webp' -->
+                <img src="fica-tax-refund-for-restaurants.webp" alt="Restaurant staff discussing FICA" class="w-full h-full object-cover">
+            </div>
+
+            <!-- NAVIGATION (White Pill Style - Figma Design) -->
+            <nav class="absolute top-8 left-0 right-0 z-50 flex justify-center px-4">
+                <div class="bg-white/95 backdrop-blur-md border border-white/20 rounded-full px-6 py-3 flex items-center gap-8 shadow-lg">
+                    <!-- Dark Logo Text -->
+                    <a href="index.html" class="font-serif text-2xl tracking-tight text-brand flex items-center gap-2">
+                        <i data-lucide="layers" class="w-5 h-5 text-accent"></i> TaxRefundJack
+                    </a>
+                    
+                    <!-- Dark/Grey Nav Links -->
+                    <div class="hidden md:flex items-center gap-6 text-[13px] font-sans font-medium tracking-wide text-muted">
+                        <a href="#how-it-works" class="hover:text-brand transition-colors">How it Works</a>
+                        <a href="#benefits" class="hover:text-brand transition-colors">Benefits</a>
+                        <a href="about.html" class="hover:text-brand transition-colors">About</a>
+                        <a href="#faq" class="hover:text-brand transition-colors">FAQ</a>
+                    </div>
+                    
+                    <!-- Dark Button -->
+                    <a href="#qualify" class="bg-brand text-white text-xs font-semibold tracking-widest px-5 py-2.5 rounded-full hover:bg-gray-800 transition-colors shadow-md">
+                        Check Eligibility
+                    </a>
+                </div>
+            </nav>
+
+            <!-- HERO CONTENT -->
+            <div class="relative z-20 h-full flex flex-col justify-center items-center text-center px-6 pt-20 pb-10">
+                <div class="max-w-4xl mx-auto mt-10">
+                    <!-- Badge -->
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/30 bg-white/20 backdrop-blur-md text-[10px] font-sans font-bold uppercase tracking-[0.15em] mb-8 shadow-sm text-white">
+                        <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+                        Updated for 2026 Tax Regulations
+                    </div>
+                    
+                    <!-- Headline -->
+                    <h1 class="text-6xl md:text-8xl font-serif text-white leading-[0.95] tracking-tight mb-8 drop-shadow-lg">
+                        The Smartest Way to <br>
+                        <span class="text-white">Claim Your FICA Credit.</span>
+                    </h1>
+                    
+                    <!-- Subtext -->
+                    <p class="text-lg text-white/90 font-normal max-w-xl mx-auto mb-10 leading-relaxed font-sans drop-shadow-md">
+                        Don't settle for a generalist. TaxRefundJack uses data to match you with the specific FICA specialist best suited to maximize your refund and defend it.
+                    </p>
+                    
+                    <!-- CTA -->
+                    <div class="flex flex-col items-center justify-center gap-4">
+                        <a href="#qualify" class="group px-10 py-4 bg-accent text-white font-sans font-bold text-sm tracking-wide rounded-lg hover:bg-emerald-600 transition-all shadow-lg shadow-emerald-900/40 transform hover:-translate-y-1 flex items-center gap-2">
+                            Start Free Prequalification
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FULL WIDTH SCROLLER (Clean white background, no borders) -->
+    <div class="w-full bg-white border-b border-border py-4 relative z-30">
+        <div class="scroller">
+            <div class="scroller-inner">
+                <span class="text-xs font-sans font-bold text-muted uppercase tracking-[0.2em] mx-8">Restaurants</span>
+                <span class="text-xs font-sans font-bold text-muted uppercase tracking-[0.2em] mx-8">Bars & Nightclubs</span>
+                <span class="text-xs font-sans font-bold text-muted uppercase tracking-[0.2em] mx-8">Hotels & Resorts</span>
+                <span class="text-xs font-sans font-bold text-muted uppercase tracking-[0.2em] mx-8">Coffee Shops</span>
+                <span class="text-xs font-sans font-bold text-muted uppercase tracking-[0.2em] mx-8">Breweries</span>
+                <span class="text-xs font-sans font-bold text-muted uppercase tracking-[0.2em] mx-8">Salons (OBBBA)</span>
+                <span class="text-xs font-sans font-bold text-muted uppercase tracking-[0.2em] mx-8">Barber Shops</span>
+                <!-- Duplicate -->
+                <span class="text-xs font-sans font-bold text-muted uppercase tracking-[0.2em] mx-8">Restaurants</span>
+                <span class="text-xs font-sans font-bold text-muted uppercase tracking-[0.2em] mx-8">Bars & Nightclubs</span>
+                <span class="text-xs font-sans font-bold text-muted uppercase tracking-[0.2em] mx-8">Hotels & Resorts</span>
+                <span class="text-xs font-sans font-bold text-muted uppercase tracking-[0.2em] mx-8">Coffee Shops</span>
+                <span class="text-xs font-sans font-bold text-muted uppercase tracking-[0.2em] mx-8">Breweries</span>
+                <span class="text-xs font-sans font-bold text-muted uppercase tracking-[0.2em] mx-8">Salons (OBBBA)</span>
+                <span class="text-xs font-sans font-bold text-muted uppercase tracking-[0.2em] mx-8">Barber Shops</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- HOW IT WORKS (UPDATED WITH IMAGE & 2-COL LAYOUT) -->
+    <section class="py-24 px-6 border-b border-border z-10 relative bg-white" id="how-it-works">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="font-serif text-4xl text-center text-brand mb-16">How TaxRefundJack Works</h2>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-stretch">
+                <!-- Left Side: New Image -->
+                <div class="hidden lg:block relative rounded-2xl overflow-hidden shadow-card h-full min-h-[600px]">
+                    <!-- UPDATED FILENAME TO .png -->
+                    <img src="fica-tax-credit-refund-for-restaurants.webp" alt="Server taking order" class="absolute inset-0 w-full h-full object-cover">
+                    <!-- Subtle overlay to match brand feel -->
+                    <div class="absolute inset-0 bg-brand/5"></div>
+                </div>
+
+                <!-- Right Side: Timeline -->
+                <div class="relative py-4">
+                    <!-- Vertical Line (Fixed to left) -->
+                    <div class="absolute left-[27px] top-0 bottom-0 w-px bg-border"></div>
+                    
+                    <!-- Step 1 -->
+                    <div class="step-reveal relative flex items-center mb-16 group">
+                        <!-- Number Circle -->
+                        <div class="absolute left-0 w-[54px] h-[54px] bg-white border border-border rounded-full flex items-center justify-center shadow-sm z-10 text-brand font-serif text-xl group-hover:text-accent group-hover:border-accent transition-colors">
+                            1 <div class="pulse-ring opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        </div>
+                        <!-- Content Card -->
+                        <div class="pl-24 w-full">
+                            <div class="bg-white p-6 border border-border rounded-xl shadow-card group-hover:border-accent group-hover:shadow-glow transition-all">
+                                <h3 class="font-bold text-lg text-brand">Check Eligibility</h3>
+                                <p class="text-sm text-muted mt-2">Answer 5 simple questions about your business size, industry, and payroll. We verify if you qualify instantly.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="step-reveal relative flex items-center mb-16 group" style="transition-delay: 200ms;">
+                        <!-- Number Circle -->
+                        <div class="absolute left-0 w-[54px] h-[54px] bg-white border border-border rounded-full flex items-center justify-center shadow-sm z-10 text-brand font-serif text-xl group-hover:text-accent group-hover:border-accent transition-colors">
+                            2 <div class="pulse-ring opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        </div>
+                        <!-- Content Card -->
+                        <div class="pl-24 w-full">
+                             <div class="bg-white p-6 border border-border rounded-xl shadow-card group-hover:border-accent group-hover:shadow-glow transition-all">
+                                <h3 class="font-bold text-lg text-brand">We Match The Expert</h3>
+                                <p class="text-sm text-muted mt-2">Our algorithm pairs you with the specific firm best suited for your industry and volume. No more guessing.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="step-reveal relative flex items-center group" style="transition-delay: 400ms;">
+                        <!-- Icon Circle -->
+                        <div class="absolute left-0 w-[54px] h-[54px] bg-accent border border-emerald-600 rounded-full flex items-center justify-center shadow-lg shadow-emerald-200 z-10 text-white">
+                            <i data-lucide="check" class="w-6 h-6"></i>
+                        </div>
+                        <!-- Content Card -->
+                        <div class="pl-24 w-full">
+                             <div class="bg-white p-6 border border-border rounded-xl shadow-card group-hover:border-accent group-hover:shadow-glow transition-all">
+                                <h3 class="font-bold text-lg text-brand">Secure Your Credit</h3>
+                                <p class="text-sm text-muted mt-2">The partner calculates your refund, files the IRS paperwork, and provides the audit defense. You get paid.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BENTO GRID (VALUE PROP) -->
+    <section class="py-24 px-6 border-b border-border z-10 relative" id="benefits">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl font-serif text-brand mb-4">We Curate the Market. You Get the Results.</h2>
+                <p class="text-muted text-sm max-w-2xl mx-auto">We are not an accounting firm. We are a marketplace that connects you with vetted, high-performance FICA specialists.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Tile 1 -->
+                <div class="bento-card md:col-span-2 p-10 flex flex-col justify-between min-h-[300px]">
+                    <div>
+                        <div class="bg-brand w-10 h-10 rounded-full flex items-center justify-center mb-6">
+                            <i data-lucide="shield-check" class="text-white w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-3xl font-serif text-brand mb-3">Vetted for Audit Defense</h3>
+                        <p class="text-muted text-sm max-w-md">We only partner with firms that offer contractual Audit Defense. If the IRS knocks, your matched specialist answers the door—not you.</p>
+                    </div>
+                    <div class="mt-8 flex gap-3">
+                        <span class="px-3 py-1 border border-border rounded text-[10px] uppercase font-bold text-muted bg-gray-50">Legal Protection</span>
+                        <span class="px-3 py-1 border border-border rounded text-[10px] uppercase font-bold text-muted bg-gray-50">compliance checks</span>
+                    </div>
+                </div>
+                <!-- Tile 2 -->
+                <div class="bento-card p-10">
+                    <span class="text-accent font-sans font-bold text-[10px] uppercase tracking-widest mb-4 block">Zero Risk</span>
+                    <h3 class="text-3xl font-serif text-brand mb-3">No Upfront Fees</h3>
+                    <p class="text-muted text-sm">Our partners work on contingency. They calculate your credit for free. They only get paid a percentage when you get paid.</p>
+                </div>
+                
+                <!-- Tile 3 (Image: Barista/Payroll) -->
+                <div class="bento-card relative p-10 flex flex-col justify-end group overflow-hidden">
+                    <img src="fica-tax-credit-refund-for-coffee-shops.webp" alt="Payroll Integration" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand/95 via-brand/60 to-transparent"></div>
+                    <div class="relative z-10">
+                        <span class="text-accent font-sans font-bold text-[10px] uppercase tracking-widest mb-4 block">Tech Enabled</span>
+                        <h3 class="text-3xl font-serif text-white mb-3">Payroll Integration</h3>
+                        <p class="text-slate-200 text-sm">Don't manually send spreadsheets. We match you with providers who integrate directly with Toast, ADP, Square, and Gusto.</p>
+                    </div>
+                </div>
+
+                <!-- Tile 4 -->
+                <div class="bento-card md:col-span-2 p-10 flex items-center gap-8">
+                    <div class="flex-1">
+                        <h3 class="text-3xl font-serif text-brand mb-3">Get Your Refund Advanced</h3>
+                        <p class="text-muted text-sm mb-4">Waiting on the IRS can take months. Select partners in our network offer "Refund Advance" options so you get cash flow immediately.</p>
+                        <a href="#qualify" class="text-brand text-xs font-bold border-b border-brand pb-0.5 hover:text-accent hover:border-accent transition-colors">See if you qualify &rarr;</a>
+                    </div>
+                    <div class="hidden md:block">
+                        <div class="bg-emerald-50 border border-emerald-100 p-4 rounded-lg text-center">
+                            <div class="text-xs text-emerald-600 font-bold uppercase mb-1">Estimated Wait</div>
+                            <div class="text-2xl font-serif text-emerald-700">5 Days</div>
+                            <div class="text-[10px] text-emerald-500">With Advance Option</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUALIFICATION / CTA SECTION -->
+    <section class="py-24 px-6 border-b border-border z-10 relative bg-white" id="qualify">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="text-accent font-bold uppercase tracking-widest text-xs mb-4 block">Let's Get Started</span>
+            <h2 class="text-5xl font-serif text-brand mb-8">Do You Qualify?</h2>
+            <p class="text-muted mb-12">If you check these three boxes, there is a 95% chance you are owed money.</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div class="p-6 border border-border rounded-lg text-left hover:border-accent transition-colors group">
+                    <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center mb-4 text-accent group-hover:bg-accent group-hover:text-white transition-colors"><i data-lucide="check" class="w-4 h-4"></i></div>
+                    <h4 class="font-bold text-brand mb-2">Food/Bev/Beauty</h4>
+                    <p class="text-xs text-muted">You serve food/drinks or operate a salon/barber shop.</p>
+                </div>
+                <div class="p-6 border border-border rounded-lg text-left hover:border-accent transition-colors group">
+                    <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center mb-4 text-accent group-hover:bg-accent group-hover:text-white transition-colors"><i data-lucide="check" class="w-4 h-4"></i></div>
+                    <h4 class="font-bold text-brand mb-2">Tipped Employees</h4>
+                    <p class="text-xs text-muted">You have W-2 employees who report tips.</p>
+                </div>
+                <div class="p-6 border border-border rounded-lg text-left hover:border-accent transition-colors group">
+                    <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center mb-4 text-accent group-hover:bg-accent group-hover:text-white transition-colors"><i data-lucide="check" class="w-4 h-4"></i></div>
+                    <h4 class="font-bold text-brand mb-2">Paid Payroll Tax</h4>
+                    <p class="text-xs text-muted">You paid Social Security/Medicare taxes in the last 3 years.</p>
+                </div>
+            </div>
+            
+            <!-- MODIFIED CTA WITH IMAGE BACKGROUND (Specialist/Meeting) -->
+            <div class="bg-brand text-white p-10 rounded-2xl shadow-xl relative overflow-hidden group">
+                <!-- Background Image (Fully opaque) -->
+                <img src="how-to-get-your-fica-tax-refunds.webp" alt="Specialist Meeting" class="absolute inset-0 w-full h-full object-cover z-0 group-hover:scale-105 transition-transform duration-1000">
+                
+                <!-- 60% Black Overlay for visibility -->
+                <div class="absolute inset-0 bg-gray-900/60 z-0"></div>
+
+                <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-accent rounded-full opacity-20 blur-3xl z-0"></div>
+                
+                <!-- Content -->
+                <h3 class="text-3xl font-serif mb-4 relative z-10">Match Me With a Specialist</h3>
+                <p class="text-white/70 mb-8 max-w-lg mx-auto relative z-10">Fill out our 60-second questionnaire. We will introduce you to the best accounting partner for your specific situation.</p>
+                <a href="#" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent text-white font-bold rounded hover:bg-emerald-600 transition-all transform hover:-translate-y-1 relative z-10">
+                    Find My Refund <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ (Corrected with 7 Questions) -->
+    <section class="py-24 px-6 z-10 relative bg-slate-50" id="faq">
+        <div class="max-w-2xl mx-auto">
+            <h2 class="text-3xl font-serif text-center mb-10 text-brand">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                
+                <!-- Q1 -->
+                <details class="group bg-white border border-border rounded-lg open:shadow-md transition-all cursor-pointer">
+                    <summary class="flex justify-between items-center p-6 font-semibold text-brand">
+                        Does TaxRefundJack charge a fee?
+                        <span class="text-muted group-open:rotate-45 transition-transform text-2xl font-light">+</span>
+                    </summary>
+                    <div class="px-6 pb-6 text-sm text-muted leading-relaxed">
+                        No. TaxRefundJack is a free matching service for business owners. If you choose to work with one of our partners, they typically work on a contingency basis (meaning they take a small percentage of the refund they secure for you). If you get no refund, you pay nothing.
+                    </div>
+                </details>
+
+                <!-- Q2 -->
+                <details class="group bg-white border border-border rounded-lg open:shadow-md transition-all cursor-pointer">
+                    <summary class="flex justify-between items-center p-6 font-semibold text-brand">
+                        How much money can I get back?
+                        <span class="text-muted group-open:rotate-45 transition-transform text-2xl font-light">+</span>
+                    </summary>
+                    <div class="px-6 pb-6 text-sm text-muted leading-relaxed">
+                        It depends on your payroll and tips reported. The credit is essentially a refund of the Social Security taxes (6.2%) you paid on employee tips. For many restaurants, this amounts to tens of thousands of dollars per location, per year.
+                    </div>
+                </details>
+
+                <!-- Q3 -->
+                <details class="group bg-white border border-border rounded-lg open:shadow-md transition-all cursor-pointer">
+                    <summary class="flex justify-between items-center p-6 font-semibold text-brand">
+                        Does this trigger an audit?
+                        <span class="text-muted group-open:rotate-45 transition-transform text-2xl font-light">+</span>
+                    </summary>
+                    <div class="px-6 pb-6 text-sm text-muted leading-relaxed">
+                        Claiming a tax credit you are legally entitled to does not inherently trigger an audit. However, compliance is key. That is why TaxRefundJack only matches you with partners who include Audit Defense and legal protection in their service.
+                    </div>
+                </details>
+
+                <!-- Q4 (New) -->
+                <details class="group bg-white border border-border rounded-lg open:shadow-md transition-all cursor-pointer">
+                    <summary class="flex justify-between items-center p-6 font-semibold text-brand">
+                        Can I claim for past years?
+                        <span class="text-muted group-open:rotate-45 transition-transform text-2xl font-light">+</span>
+                    </summary>
+                    <div class="px-6 pb-6 text-sm text-muted leading-relaxed">
+                        Yes. The statute of limitations typically allows you to amend returns and claim credits for up to 3 years back. Our partners will review your past payroll data to uncover any retroactive refunds you are owed.
+                    </div>
+                </details>
+
+                <!-- Q5 (New) -->
+                <details class="group bg-white border border-border rounded-lg open:shadow-md transition-all cursor-pointer">
+                    <summary class="flex justify-between items-center p-6 font-semibold text-brand">
+                        I already filed my taxes. Is it too late?
+                        <span class="text-muted group-open:rotate-45 transition-transform text-2xl font-light">+</span>
+                    </summary>
+                    <div class="px-6 pb-6 text-sm text-muted leading-relaxed">
+                        It is not too late. The FICA Tip Credit is claimed on Form 8846. If you missed it on your original filing, our specialists can file an amended return (Form 941-X) to reclaim that money for you.
+                    </div>
+                </details>
+
+                <!-- Q6 (New) -->
+                <details class="group bg-white border border-border rounded-lg open:shadow-md transition-all cursor-pointer">
+                    <summary class="flex justify-between items-center p-6 font-semibold text-brand">
+                        My CPA says I don't qualify. Why check here?
+                        <span class="text-muted group-open:rotate-45 transition-transform text-2xl font-light">+</span>
+                    </summary>
+                    <div class="px-6 pb-6 text-sm text-muted leading-relaxed">
+                        Generalist CPAs are excellent at income tax, but often miss niche credits like FICA due to the complexity of the calculation (especially regarding the "minimum wage" threshold). Our partners specialize exclusively in this credit and use technology to find what others miss.
+                    </div>
+                </details>
+
+                <!-- Q7 (New) -->
+                <details class="group bg-white border border-border rounded-lg open:shadow-md transition-all cursor-pointer">
+                    <summary class="flex justify-between items-center p-6 font-semibold text-brand">
+                        Is this the same as the ERC?
+                        <span class="text-muted group-open:rotate-45 transition-transform text-2xl font-light">+</span>
+                    </summary>
+                    <div class="px-6 pb-6 text-sm text-muted leading-relaxed">
+                        No. The Employee Retention Credit (ERC) was a temporary pandemic relief program. The FICA Tip Credit (IRC §45B) is a permanent part of the US Tax Code that has existed since 1993. It is a stable, long-term tax strategy, not a temporary bailout.
+                    </div>
+                </details>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER WITH LINKS -->
+    <footer class="py-12 px-6 border-t border-border bg-white z-10 relative">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div class="col-span-1 md:col-span-1">
+                <span class="font-serif text-xl text-brand flex items-center gap-2 mb-4">
+                    <i data-lucide="layers" class="w-4 h-4 text-accent"></i> TaxRefundJack
+                </span>
+                <p class="text-xs text-muted leading-relaxed">
+                    Connecting tip-driven businesses with the nation's top FICA tax specialists.
+                </p>
+            </div>
+            
+            <div class="col-span-1">
+                <h5 class="font-sans font-bold text-xs uppercase tracking-widest text-brand mb-4">Company</h5>
+                <ul class="space-y-2 text-xs text-muted">
+                    <!-- LINKED TO ABOUT.HTML -->
+                    <li><a href="about.html" class="hover:text-accent">About Us</a></li>
+                    <li><a href="mailto:hello@solidlyleads.com" class="hover:text-accent">Partner With Us</a></li>
+                </ul>
+            </div>
+
+            <div class="col-span-1">
+                <h5 class="font-sans font-bold text-xs uppercase tracking-widest text-brand mb-4">Legal</h5>
+                <ul class="space-y-2 text-xs text-muted">
+                    <!-- LINKED TO LEGAL PAGES -->
+                    <li><a href="privacy.html" class="hover:text-accent">Privacy Policy</a></li>
+                    <li><a href="terms.html" class="hover:text-accent">Terms of Service</a></li>
+                    <li><a href="refund.html" class="hover:text-accent">Refund Policy</a></li>
+                </ul>
+            </div>
+
+            <div class="col-span-1 text-xs text-muted opacity-60">
+                <p>&copy; 2026 TaxRefundJack.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = { threshold: 0.2, rootMargin: "0px" };
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            const steps = document.querySelectorAll('.step-reveal');
+            steps.forEach(step => observer.observe(step));
+        });
+    </script>
+</body>
+</html>
