@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Schedule Your Call</title>
+    <link rel="icon" type="image/png" href="tallyhelper-favicon.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind & Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: '#F8FAFC',
+                        surface: '#FFFFFF',
+                        border: '#E2E8F0',
+                        brand: '#0F172A',
+                        accent: '#10B981',
+                        muted: '#64748B',
+                    },
+                    fontFamily: {
+                        serif: ['Instrument Serif', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'card': '0 2px 4px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.03)',
+                        'glow': '0 0 20px rgba(16, 185, 129, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-brand font-sans antialiased selection:bg-accent selection:text-white pb-10">
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <div class="max-w-xl mx-auto px-4 py-8 md:py-12">
+        
+        <!-- SECTION 1: CONFIRMATION & EXPECTATIONS -->
+        <div class="text-center mb-10">
+            <!-- Success Icon -->
+            <div class="w-14 h-14 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-5 shadow-sm">
+                <i data-lucide="check-circle-2" class="w-7 h-7 text-accent"></i>
+            </div>
+            
+            <h1 class="text-3xl md:text-4xl font-serif text-brand mb-3 leading-tight">Request Received.</h1>
+            <p class="text-muted text-base leading-relaxed mb-8 px-2">
+                A FICA tax specialist will review your information and reach out within one business day.
+            </p>
+
+            <!-- Timeline / Checklist Card -->
+            <div class="bg-white rounded-xl border border-border p-5 md:p-8 text-left shadow-card">
+                <h3 class="font-serif text-xl text-brand mb-5 border-b border-border pb-3">Here is what happens next:</h3>
+                
+                <div class="space-y-5 relative">
+                    <!-- Vertical Line connecting dots -->
+                    <div class="absolute left-[19px] top-2 bottom-4 w-0.5 bg-gray-100"></div>
+
+                    <!-- Step 1 -->
+                    <div class="relative flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-white border border-border flex items-center justify-center relative z-10 shrink-0 text-accent shadow-sm">
+                            <i data-lucide="calculator" class="w-5 h-5"></i>
+                        </div>
+                        <div class="pt-1">
+                            <h4 class="font-bold text-sm text-brand">Eligibility & Estimate</h4>
+                            <p class="text-xs text-muted mt-0.5 leading-relaxed">They'll confirm your eligibility and provide a recovery estimate.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="relative flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-white border border-border flex items-center justify-center relative z-10 shrink-0 text-muted shadow-sm">
+                            <i data-lucide="file-check" class="w-5 h-5"></i>
+                        </div>
+                        <div class="pt-1">
+                            <h4 class="font-bold text-sm text-brand">Process Walkthrough</h4>
+                            <p class="text-xs text-muted mt-0.5 leading-relaxed">Review timeline and required documentation.</p>
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="relative flex items-start gap-4">
+                        <div class="w-10 h-10 rounded-full bg-white border border-border flex items-center justify-center relative z-10 shrink-0 text-muted shadow-sm">
+                            <i data-lucide="messages-square" class="w-5 h-5"></i>
+                        </div>
+                        <div class="pt-1">
+                            <h4 class="font-bold text-sm text-brand">Q&A Session</h4>
+                            <p class="text-xs text-muted mt-0.5 leading-relaxed">Ask questions specific to your business context.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Trust Footer inside card -->
+                <div class="mt-6 pt-4 border-t border-dashed border-border flex items-start gap-2 text-xs text-muted">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-accent shrink-0 mt-0.5"></i>
+                    <span><strong>No Obligation:</strong> The goal of this consultation is simply to give you clarity.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEPARATOR -->
+        <div class="flex items-center gap-4 mb-10 opacity-60">
+            <div class="h-px bg-border flex-1"></div>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-muted">OR</span>
+            <div class="h-px bg-border flex-1"></div>
+        </div>
+
+        <!-- SECTION 2: THE UPSELL (CALENDAR) -->
+        <div class="relative">
+            <div class="text-center mb-6">
+                <div class="inline-block animate-bounce-slow">
+                    <span class="py-1.5 px-3 rounded-full bg-brand text-white text-[10px] font-bold uppercase tracking-widest shadow-lg">
+                        Skip the wait
+                    </span>
+                </div>
+                <h2 class="text-2xl font-serif text-brand mt-4 mb-2">Prefer to lock in a time now?</h2>
+                <p class="text-muted text-sm px-4">
+                    Schedule your consultation immediately using the calendar below.
+                </p>
+            </div>
+
+            <!-- CALENDAR CARD -->
+            <!-- min-h added to prevent layout shift on mobile while loading -->
+            <div class="bg-white rounded-xl shadow-card border border-border overflow-hidden relative min-h-[600px]">
+                <div class="p-1 md:p-4">
+                    <!-- GHL EMBED CODE START -->
+                    <iframe src="https://ghl.paystreet.com/widget/booking/g2TJijBBSaxBcFOjNZSK" style="width: 100%;border:none;overflow: hidden;" scrolling="no" id="g2TJijBBSaxBcFOjNZSK_1771292201692"></iframe>
+                    <br>
+                    <script src="https://ghl.paystreet.com/js/form_embed.js" type="text/javascript"></script>
+                    <!-- GHL EMBED CODE END -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SIMPLE FOOTER -->
+    <footer class="py-8 text-center border-t border-border mt-8">
+        <p class="text-[10px] text-muted uppercase tracking-wider">&copy; 2026 TallyHelper. All Rights Reserved.</p>
+        <div class="flex justify-center gap-4 mt-2 text-[10px] text-muted underline">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+    
+    <style>
+        @keyframes bounce-slow {
+            0%, 100% { transform: translateY(-3px); }
+            50% { transform: translateY(3px); }
+        }
+        .animate-bounce-slow {
+            animation: bounce-slow 3s infinite ease-in-out;
+        }
+    </style>
+</body>
+</html>
