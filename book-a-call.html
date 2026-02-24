@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>You're All Set — PayStreet</title>
+    <link rel="icon" type="image/png" href="tallyhelper-favicon.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* ─── RESET & BASE ─── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        :root {
+            --bg: #F7F8FA;
+            --surface: #FFFFFF;
+            --brand: #0C1B2A;
+            --brand-light: #1E3A5F;
+            --accent: #0D9B68;
+            --accent-light: #E8F8F2;
+            --accent-dark: #0A7E54;
+            --muted: #5A6A7B;
+            --muted-light: #8896A6;
+            --border: #E3E8EE;
+            --border-light: #F0F2F5;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.08);
+            --radius: 12px;
+            --radius-lg: 16px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--brand);
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
+            padding-bottom: 80px;
+        }
+
+        ::selection { background: var(--accent); color: #fff; }
+
+        /* ─── TOP NAV ─── */
+        .top-nav {
+            background: var(--surface);
+            padding: 16px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+        .top-nav img {
+            height: 28px;
+            width: auto;
+            display: inline-block;
+        }
+
+        /* ─── LAYOUT ─── */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section { margin-bottom: 40px; }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 28px 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* ─── HEADER / CONFIRMATION ─── */
+        .header {
+            text-align: center;
+            padding-top: 32px;
+            padding-bottom: 8px;
+        }
+
+        .success-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent-light);
+            color: var(--accent-dark);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 100px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--brand);
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
+            line-height: 1.2;
+        }
+        .header .subtitle {
+            font-size: 15px;
+            color: var(--muted);
+            max-width: 440px;
+            margin: 0 auto 20px auto;
+            line-height: 1.55;
+        }
+
+        .primary-btn-top {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--brand);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            box-shadow: var(--shadow-sm);
+            transition: opacity 0.2s;
+        }
+        .primary-btn-top:hover { opacity: 0.9; }
+
+        /* ─── SPECIALIST CARD ─── */
+        .specialist-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            margin-top: 32px;
+            text-align: left;
+        }
+        .specialist-photo {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--border-light);
+            flex-shrink: 0;
+        }
+        .specialist-info { flex: 1; min-width: 0; }
+        .specialist-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--brand);
+        }
+        .specialist-role {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 1px;
+        }
+        .specialist-phone-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 6px;
+        }
+        .specialist-phone-row i { width: 14px; height: 14px; color: var(--accent); }
+        .specialist-phone {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--brand);
+            text-decoration: none;
+        }
+
+        /* ─── VCARD SAVE CONTACT BUTTON ─── */
+        .save-contact-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            margin-top: 16px;
+            padding: 14px;
+            background: #F0FDF4; 
+            border: 1px solid #BBF7D0;
+            color: #166534; 
+            font-weight: 600;
+            font-size: 14.5px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        }
+        .save-contact-btn:hover {
+            background: #DCFCE7;
+        }
+        .save-contact-btn i { width: 18px; height: 18px; }
+
+        /* ─── TIMELINE ─── */
+        .timeline-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--brand);
+            margin-bottom: 20px;
+        }
+        .timeline { position: relative; }
+        .timeline-step {
+            display: flex;
+            gap: 14px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+        .timeline-step:last-child { padding-bottom: 0; }
+        .timeline-dot-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 36px;
+        }
+        .timeline-dot {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1.5px solid var(--border);
+            background: var(--surface);
+        }
+        .timeline-dot.active {
+            background: var(--accent-light);
+            border-color: var(--accent);
+        }
+        .timeline-dot i { width: 17px; height: 17px; color: var(--muted); }
+        .timeline-dot.active i { color: var(--accent-dark); }
+        .timeline-line { width: 1.5px; flex: 1; background: var(--border-light); margin-top: 4px; }
+        
+        .timeline-content { padding-top: 6px; }
+        .timeline-content h4 { font-size: 14px; font-weight: 650; color: var(--brand); }
+        .timeline-content p { font-size: 13px; color: var(--muted); margin-top: 2px; line-height: 1.5; }
+
+        .no-obligation {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px dashed var(--border);
+            font-size: 12.5px;
+            color: var(--muted);
+        }
+        .no-obligation i { width: 15px; height: 15px; color: var(--accent); flex-shrink: 0; }
+
+        /* ─── URGENCY STATS ─── */
+        .stats-header { text-align: center; margin-bottom: 20px; }
+        .stats-header h2 { font-size: 22px; font-weight: 700; line-height: 1.3; }
+        .stats-header p { font-size: 14px; color: var(--muted); margin-top: 6px; }
+        
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .stat-card {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 20px 16px;
+            text-align: center; box-shadow: var(--shadow-sm);
+        }
+        .stat-number { font-size: 26px; font-weight: 800; color: var(--accent-dark); line-height: 1.1; }
+        .stat-label { font-size: 12px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+
+        /* ─── TRUSTPILOT-STYLE TESTIMONIALS ─── */
+        .testimonials-header { text-align: center; margin-bottom: 20px; }
+        .testimonials-header h2 { font-size: 22px; font-weight: 700; }
+        .testimonials-header p { font-size: 14px; color: var(--muted); margin-top: 4px; }
+        
+        .testimonial-card {
+            background: var(--surface); 
+            border: 1px solid var(--border);
+            border-radius: var(--radius); 
+            padding: 20px; 
+            margin-bottom: 16px; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            text-align: left;
+        }
+        .testimonial-top { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 12px; 
+        }
+        .testimonial-recovered { 
+            font-size: 16px; 
+            font-weight: 700; 
+            color: var(--brand); 
+        }
+        
+        /* Green Square Stars */
+        .tp-stars { 
+            display: flex; 
+            gap: 2px; 
+        }
+        .tp-star {
+            width: 22px;
+            height: 22px;
+            background: #00B67A; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tp-star i {
+            width: 14px;
+            height: 14px;
+            color: #fff;
+            fill: #fff;
+        }
+
+        .testimonial-text { 
+            font-size: 14.5px; 
+            color: #4B5563; 
+            line-height: 1.5; 
+            margin-bottom: 16px; 
+        }
+
+        .testimonial-author { 
+            display: flex; 
+            align-items: center;
+            gap: 12px; 
+        }
+        .avatar {
+            width: 42px;
+            height: 42px;
+            background: #BBD3C5;
+            color: #0B3B24;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+        .author-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .author-name { 
+            font-size: 14.5px; 
+            font-weight: 700; 
+            color: var(--brand); 
+            line-height: 1.2;
+        }
+        .author-role { 
+            font-size: 13px; 
+            color: #6B7280; 
+            margin-top: 2px;
+        }
+
+        .hidden-testimonials { display: none; }
+        .hidden-testimonials.show { display: block; }
+        .testimonials-toggle {
+            display: flex; align-items: center; justify-content: center; gap: 6px;
+            width: 100%; padding: 12px; background: transparent; border: 1px solid var(--border);
+            border-radius: 8px; font-size: 13px; font-weight: 600; color: var(--muted);
+            cursor: pointer; transition: all 0.2s; margin-top: 4px;
+        }
+        .testimonials-toggle:hover { background: var(--border-light); color: var(--brand); }
+        .testimonials-toggle.expanded i { transform: rotate(180deg); }
+
+        /* ─── FAQ ─── */
+        .faq-header { text-align: center; margin-bottom: 20px; }
+        .faq-header h2 { font-size: 22px; font-weight: 700; }
+        .faq-item { border-bottom: 1px solid var(--border); }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-question {
+            display: flex; align-items: center; justify-content: space-between;
+            width: 100%; padding: 16px 0; background: none; border: none;
+            font-size: 14px; font-weight: 600; color: var(--brand); cursor: pointer; text-align: left;
+        }
+        .faq-question i { width: 18px; height: 18px; color: var(--muted-light); transition: transform 0.25s; }
+        .faq-question.active i { transform: rotate(180deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        .faq-answer.open { max-height: 400px; }
+        .faq-answer-inner { padding-bottom: 16px; font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+
+        /* ─── CALENDAR ─── */
+        .calendar-section { text-align: center; }
+        .skip-badge {
+            display: inline-block; padding: 6px 14px; background: var(--brand);
+            color: #fff; font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; border-radius: 100px; margin-bottom: 16px;
+        }
+        .calendar-section h2 { font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+        .calendar-section > p { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+        .calendar-card {
+            background: var(--surface); border: 1px solid var(--border);
+            border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); min-height: 580px;
+        }
+        .calendar-card .inner { padding: 4px; }
+        @media (min-width: 480px) { .calendar-card .inner { padding: 16px; } }
+
+        /* ─── FINAL CTA ─── */
+        .final-cta { text-align: center; }
+        .final-cta h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+        .final-cta p { font-size: 13.5px; color: var(--muted); }
+        .call-expect-list { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+        .call-expect-item { display: flex; align-items: flex-start; gap: 10px; text-align: left; font-size: 13.5px; }
+        .call-expect-item i { width: 18px; height: 18px; color: var(--accent); flex-shrink: 0; }
+        .call-expect-phone {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            margin-top: 16px; padding: 14px 20px; background: var(--brand);
+            border-radius: 10px; color: #fff; text-decoration: none;
+        }
+        .call-expect-phone span { font-size: 15px; font-weight: 600; }
+
+        /* ─── STICKY BAR ─── */
+        .sticky-bar {
+            position: fixed; bottom: 0; left: 0; right: 0; background: var(--surface);
+            border-top: 1px solid var(--border); padding: 12px 20px; z-index: 100;
+            box-shadow: 0 -4px 16px rgba(0,0,0,0.06); display: flex; justify-content: center;
+            transition: transform 0.3s ease;
+        }
+        .sticky-bar a {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            width: 100%; max-width: 400px; padding: 13px 24px; background: var(--accent);
+            color: #fff; font-size: 14px; font-weight: 650; border-radius: 10px; text-decoration: none;
+        }
+        .sticky-bar.hidden { transform: translateY(100%); }
+
+        /* ─── FOOTER ─── */
+        footer { padding: 32px 20px 16px; text-align: center; border-top: 1px solid var(--border); margin-top: 40px; }
+        footer .brand-name { font-weight: 700; font-size: 15px; color: var(--brand); }
+        footer .copyright { font-size: 11px; color: var(--muted-light); margin-top: 4px; }
+        footer .legal-links { display: flex; justify-content: center; gap: 16px; margin-top: 8px; }
+        footer .legal-links a { font-size: 11px; color: var(--muted-light); text-decoration: underline; }
+        footer .disclaimer { font-size: 10.5px; color: var(--muted-light); margin-top: 16px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.5; }
+        
+        /* ─── ANIMATIONS ─── */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-in { animation: fadeInUp 0.5s ease-out both; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+    </style>
+</head>
+<body>
+
+    <!-- TOP NAVIGATION LOGO -->
+    <div class="top-nav">
+        <!-- Using the provided next.js optimized image URL -->
+        <img src="https://www.paystreet.com/_next/image?url=%2Fimages%2Flogo-horizontal.svg&w=384&q=75" alt="PayStreet Logo">
+    </div>
+
+    <div class="container">
+        <!-- SECTION 1: CONFIRMATION + MEET KASH -->
+        <div class="header section animate-in">
+            <div class="success-badge">
+                <i data-lucide="check-circle-2"></i> Request Received
+            </div>
+            <h1>You're All Set.</h1>
+            <p class="subtitle">
+                Your information is in. A FICA tax specialist will be in touch to discuss your eligibility and potential recovery.
+            </p>
+            
+            <!-- Quick Action for Hot Leads -->
+            <a href="#calendarSection" class="primary-btn-top">
+                <i data-lucide="calendar" style="width:16px; height:16px;"></i> Lock In Your Time Now
+            </a>
+
+            <!-- Specialist Card -->
+            <div class="specialist-card animate-in delay-1">
+                <img src="https://assets.cdn.filesafe.space/djVMtolYXqx5d6VyDaRS/media/699d6b563730801b59b43601.png" alt="Kash Badami" class="specialist-photo">
+                <div class="specialist-info">
+                    <div class="specialist-name">Kash Badami</div>
+                    <div class="specialist-role">Chief Operating Officer · PayStreet</div>
+                    <div class="specialist-phone-row">
+                        <i data-lucide="phone"></i>
+                        <a href="tel:18007664507" class="specialist-phone">1-800-766-4507</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VCARD DOWNLOAD BUTTON -->
+            <a href="data:text/vcard;charset=utf-8,BEGIN%3AVCARD%0AVERSION%3A3.0%0AFN%3AKash%20Badami%20%28PayStreet%29%0AN%3ABadami%3BKash%3B%3B%3B%0AORG%3APayStreet%0ATITLE%3AChief%20Operating%20Officer%0ATEL%3BTYPE%3DWORK%2CVOICE%3A1-800-766-4507%0AEND%3AVCARD" 
+               download="Kash_PayStreet.vcf" 
+               class="save-contact-btn animate-in delay-2">
+                <i data-lucide="user-plus"></i>
+                Save Kash to Contacts
+            </a>
+        </div>
+
+        <!-- SECTION 2: WHAT HAPPENS NEXT -->
+        <div class="card section animate-in delay-2">
+            <div class="timeline-title">Here's what happens next:</div>
+            <div class="timeline">
+                <div class="timeline-step">
+                    <div class="timeline-dot-col">
+                        <div class="timeline-dot active"><i data-lucide="phone-outgoing"></i></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Kash Calls You</h4>
+                        <p>Within one business day. If he can't reach you, he'll leave a voicemail and follow up via text message.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-step">
+                    <div class="timeline-dot-col">
+                        <div class="timeline-dot"><i data-lucide="calculator"></i></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Eligibility & Estimate</h4>
+                        <p>A quick 15-minute chat to confirm your business qualifies and give you an idea of your recovery size.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-step">
+                    <div class="timeline-dot-col">
+                        <div class="timeline-dot"><i data-lucide="file-check"></i></div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Simple Documentation</h4>
+                        <p>Kash walks you through the POS and payroll files needed. His team handles the heavy lifting.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-step">
+                    <div class="timeline-dot-col">
+                        <div class="timeline-dot"><i data-lucide="banknote"></i></div>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Money Hits Your Account</h4>
+                        <p>Once confirmed and filed, the IRS processes your claim and issues your funds directly. Your claim is fully tracked by our team.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="no-obligation">
+                <i data-lucide="shield-check"></i>
+                <span><strong>Zero obligation, zero cost upfront.</strong> If you don't recover money, you don't pay anything. Period.</span>
+            </div>
+        </div>
+
+        <!-- SECTION 3: URGENCY -->
+        <div class="section">
+            <div class="stats-header">
+                <h2>Why You Should Take This Call</h2>
+                <p>Most restaurants are leaving serious cash on the table.</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">87%</div>
+                    <div class="stat-label">of eligible businesses<br>never claim this</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">$50K+</div>
+                    <div class="stat-label">average recovery<br>per business</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3 Years</div>
+                    <div class="stat-label">you can claim<br>retroactively</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15 Min</div>
+                    <div class="stat-label">is all the initial<br>call takes</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 4: TESTIMONIALS (TRUSTPILOT STYLE) -->
+        <div class="section">
+            <div class="testimonials-header">
+                <h2>Real Recoveries. Real Restaurants.</h2>
+                <p>Here's what other hospitality owners received.</p>
+            </div>
+
+            <!-- Top 3 -->
+            <div class="testimonial-card">
+                <div class="testimonial-top">
+                    <div class="testimonial-recovered">Recovered: $53,621</div>
+                    <div class="tp-stars">
+                        <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                        <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                        <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                        <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                        <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                    </div>
+                </div>
+                <div class="testimonial-text">
+                    PayStreet turned what seemed like a complex tax issue into a simple process. $53,621 recovered with zero hassle on our end. Highly recommend!
+                </div>
+                <div class="testimonial-author">
+                    <div class="avatar">DP</div>
+                    <div class="author-info">
+                        <div class="author-name">David Park</div>
+                        <div class="author-role">Operations Director • Park's BBQ & Grill</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-top">
+                    <div class="testimonial-recovered">Recovered: $41,276</div>
+                    <div class="tp-stars">
+                        <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                        <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                        <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                        <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                        <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                    </div>
+                </div>
+                <div class="testimonial-text">
+                    Got $41,276 back! They handled all the IRS paperwork. Fast, professional, and absolutely worth it.
+                </div>
+                <div class="testimonial-author">
+                    <div class="avatar">SC</div>
+                    <div class="author-info">
+                        <div class="author-name">Sarah Chen</div>
+                        <div class="author-role">CFO • Chen's Asian Fusion</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-top">
+                    <div class="testimonial-recovered">Recovered: $35,912</div>
+                    <div class="tp-stars">
+                        <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                        <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                        <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                        <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                        <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                    </div>
+                </div>
+                <div class="testimonial-text">
+                    Best decision this year. Found $35,912 in credits. Only pay if you get money back. No brainer!
+                </div>
+                <div class="testimonial-author">
+                    <div class="avatar">TW</div>
+                    <div class="author-info">
+                        <div class="author-name">Tom Williams</div>
+                        <div class="author-role">General Manager • The Waterfront Grill</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hidden -->
+            <div class="hidden-testimonials" id="moreTestimonials">
+                <div class="testimonial-card">
+                    <div class="testimonial-top">
+                        <div class="testimonial-recovered">Recovered: $312,000</div>
+                        <div class="tp-stars">
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        PayStreet transformed how we serve our team. Our managers spend zero time on payroll issues now. Plus, we recovered $312K in FICA credits we didn't even know existed.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="avatar">MR</div>
+                        <div class="author-info">
+                            <div class="author-name">Maria Rodriguez</div>
+                            <div class="author-role">Owner • Bella Vista Restaurant Group (8 locs)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-top">
+                        <div class="testimonial-recovered">Recovered: $32,194</div>
+                        <div class="tp-stars">
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        I can't believe we were leaving so much money on the table. PayStreet recovered $32,194 for us. The process was so easy, and their team is fantastic!
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="avatar">MG</div>
+                        <div class="author-info">
+                            <div class="author-name">Maria Gonzalez</div>
+                            <div class="author-role">Owner • Gonzalez Cantina</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-top">
+                        <div class="testimonial-recovered">Recovered: $27,843</div>
+                        <div class="tp-stars">
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        PayStreet recovered $27,843 in FICA credits we didn't know existed. Money hit our account in just 6 weeks!
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="avatar">MR</div>
+                        <div class="author-info">
+                            <div class="author-name">Michael Rodriguez</div>
+                            <div class="author-role">Owner • Rodriguez Family Restaurant</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-top">
+                        <div class="testimonial-recovered">Recovered: $18,457</div>
+                        <div class="tp-stars">
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                            <div class="tp-star"><i data-lucide="star" stroke-width="0"></i></div>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        The team at PayStreet is incredible. They walked us through every step and recovered $18,457 in FICA credits.
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="avatar">LJ</div>
+                        <div class="author-info">
+                            <div class="author-name">Lisa Johnson</div>
+                            <div class="author-role">Owner • Johnson's Steakhouse</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="testimonials-toggle" id="toggleBtn" onclick="toggleTestimonials()">
+                <span id="toggleText">Show 4 more recoveries</span>
+                <i data-lucide="chevron-down"></i>
+            </button>
+        </div>
+
+        <!-- SECTION 5: FAQ -->
+        <div class="section">
+            <div class="faq-header">
+                <h2>Common Questions</h2>
+            </div>
+            <div class="card" style="padding: 4px 24px;">
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>What exactly is the FICA Tip Credit?</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            If your business has tipped employees, you're already paying an extra 7.65% in payroll taxes on those tips. The FICA Tip Credit (IRS Section 45B) gives that tax money back to you as a dollar-for-dollar credit. It's been federal law since 1993, but many operators aren't aware of it.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Is this legitimate?</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            100%. This is a federal tax credit established by Congress (IRC Section 45B) and is claimed directly on IRS Form 8846. It's not a loophole—it's a credit specifically designed for hospitality businesses like yours. 
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Does my business qualify?</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            If you operate a restaurant, bar, or café with employees who receive tips, you very likely qualify. The 15-minute call with Kash will confirm your eligibility and give you a ballpark recovery estimate at no cost.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>What does it cost?</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Nothing upfront—ever. PayStreet works strictly on a contingency basis. If we don't recover money for you, you pay absolutely nothing. The consultation call is free with zero obligation.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Why didn't my current CPA tell me about this?</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Most general accountants focus on standard tax prep. The FICA Tip Credit requires specialized reconciliation between your POS data and payroll records that goes beyond typical tax filing. That's why 87% of eligible businesses miss it. PayStreet specializes in bridging this exact gap.
+                        </div>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        <span>Can I claim for previous years too?</span>
+                        <i data-lucide="chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Yes. The IRS allows you to file amended returns for the past 3 tax years. This is where the biggest recoveries come from. Kash will outline how much you might be owed historically on your call.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEPARATOR -->
+        <div style="display: flex; align-items: center; gap: 14px; margin: 36px 0;">
+            <div style="height: 1px; background: var(--border); flex: 1;"></div>
+            <span style="font-size: 10px; font-weight: 700; color: var(--muted-light); text-transform: uppercase; letter-spacing: 0.1em;">Skip the Wait</span>
+            <div style="height: 1px; background: var(--border); flex: 1;"></div>
+        </div>
+
+        <!-- SECTION 6: CALENDAR -->
+        <div class="section calendar-section" id="calendarSection">
+            <h2>Book Your Call Now</h2>
+            <p>Lock in a time that works for you instead of waiting for a callback.</p>
+            <div class="calendar-card">
+                <div class="inner">
+                    <!-- GHL EMBED CODE START -->
+                    <iframe src="https://ghl.paystreet.com/widget/booking/g2TJijBBSaxBcFOjNZSK" style="width: 100%; border: none; overflow: hidden;" scrolling="no" id="g2TJijBBSaxBcFOjNZSK_1771292201692"></iframe>
+                    <script src="https://ghl.paystreet.com/js/form_embed.js" type="text/javascript"></script>
+                    <!-- GHL EMBED CODE END -->
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 7: FINAL CTA -->
+        <div class="section final-cta">
+            <div class="card">
+                <h3>Prefer a Callback Instead?</h3>
+                <p>No problem — Kash will reach out within one business day. Here's what to expect:</p>
+                <div class="call-expect-list">
+                    <div class="call-expect-item"><i data-lucide="clock"></i><span>Quick 15-minute call — no long sales pitch</span></div>
+                    <div class="call-expect-item"><i data-lucide="search"></i><span>He'll check if your business is eligible on the spot</span></div>
+                    <div class="call-expect-item"><i data-lucide="receipt"></i><span>You'll get a recovery estimate with no obligation</span></div>
+                    <div class="call-expect-item"><i data-lucide="shield-check"></i><span>If you don't qualify, no charge — you'll know in minutes</span></div>
+                </div>
+                <!-- Made Phone Clickable -->
+                <a href="tel:18007664507" class="call-expect-phone">
+                    <i data-lucide="phone"></i>
+                    <span>1-800-766-4507</span>
+                </a>
+                <p style="font-size: 12px; color: var(--muted-light); margin-top: 12px;">Look out for a call or text from this number.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- STICKY BOTTOM BAR -->
+    <div class="sticky-bar" id="stickyBar">
+        <a href="#calendarSection">
+            <i data-lucide="calendar"></i>
+            Book Your 15-Min Call
+        </a>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="brand-name">PayStreet</div>
+        <div class="copyright">&copy; 2026 PayStreet. All Rights Reserved.</div>
+        <div class="legal-links">
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+        </div>
+        <div class="disclaimer">
+            This page is for informational purposes only and does not constitute financial or tax advice. Tax credit eligibility and recovery amounts vary by business type, location, and payroll structure. Consult a qualified tax professional regarding your specific situation.
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+        lucide.createIcons();
+
+        // FAQ Toggle Logic
+        function toggleFaq(btn) {
+            const answer = btn.nextElementSibling;
+            const isOpen = answer.classList.contains('open');
+            document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+            document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('active'));
+            if (!isOpen) {
+                answer.classList.add('open');
+                btn.classList.add('active');
+            }
+        }
+
+        // Testimonials Toggle Logic
+        function toggleTestimonials() {
+            const more = document.getElementById('moreTestimonials');
+            const btn = document.getElementById('toggleBtn');
+            const text = document.getElementById('toggleText');
+            more.classList.toggle('show');
+            btn.classList.toggle('expanded');
+            if (more.classList.contains('show')) {
+                text.textContent = 'Show less';
+                lucide.createIcons();
+            } else {
+                text.textContent = 'Show 4 more recoveries';
+            }
+        }
+
+        // Hide Sticky Bar when near the Calendar
+        const stickyBar = document.getElementById('stickyBar');
+        const calendarSection = document.getElementById('calendarSection');
+        if (calendarSection && stickyBar) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        stickyBar.classList.add('hidden');
+                    } else {
+                        stickyBar.classList.remove('hidden');
+                    }
+                });
+            }, { threshold: 0.1 });
+            observer.observe(calendarSection);
+        }
+    </script>
+</body>
+</html>
